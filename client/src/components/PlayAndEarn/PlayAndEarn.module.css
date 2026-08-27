@@ -1,0 +1,227 @@
+.wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.title {
+  font-size: 1.05rem;
+}
+
+.plays {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.error {
+  color: var(--accent-red);
+  font-size: 0.82rem;
+  margin-bottom: 12px;
+}
+
+.loadingBox {
+  padding: 4px 0;
+}
+
+/* --- Start screen --- */
+.startBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px 6px 4px;
+}
+
+.startIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--gradient-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: #201400;
+  margin-bottom: 12px;
+}
+
+.gameName {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+
+.gameDesc {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-bottom: 14px;
+}
+
+.rulesList {
+  text-align: left;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  padding-left: 18px;
+  margin-bottom: 18px;
+  line-height: 1.6;
+}
+
+.primaryBtn {
+  background: var(--gradient-primary);
+  color: #fff;
+  border: none;
+  padding: 11px 28px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.primaryBtn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+/* --- Play screen --- */
+.playBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.playHud {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+.playHud strong {
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.playArea {
+  position: relative;
+  height: 220px;
+  background: var(--surface-alt);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.coin {
+  position: absolute;
+  top: -10%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--gradient-gold);
+  border: none;
+  color: #201400;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  animation-name: coinFall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  box-shadow: 0 4px 10px rgba(244, 183, 64, 0.35);
+}
+
+.coin:hover {
+  transform: scale(1.08);
+}
+
+@keyframes coinFall {
+  from {
+    top: -10%;
+  }
+  to {
+    top: 100%;
+  }
+}
+
+.playOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(22, 24, 39, 0.65);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* --- Result screen --- */
+.resultBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 14px 6px 4px;
+}
+
+.resultIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.resultScore {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+}
+
+.resultXp {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--accent-gold);
+  margin-bottom: 8px;
+}
+
+.resultLevelUp {
+  color: var(--accent-purple);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.resultActions {
+  margin-top: 10px;
+}
+
+/* --- Unavailable state --- */
+.unavailable {
+  text-align: center;
+  padding: 24px 6px;
+}
+
+.unavailableTitle {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.unavailableText {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}

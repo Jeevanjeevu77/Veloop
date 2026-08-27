@@ -1,0 +1,84 @@
+:root {
+  /* Core palette (from VELOOP reference) */
+  --bg: #161827;
+  --surface: #1e2033;
+  --surface-alt: #242640;
+  --border: #2e3050;
+
+  --text-primary: #f4f5fa;
+  --text-secondary: #9a9cb8;
+  --text-muted: #6b6d8c;
+
+  --accent-purple: #7c5cff;
+  --accent-purple-dark: #5b3df0;
+  --accent-gold: #f4b740;
+  --accent-blue: #4da9ff;
+  --accent-green: #3ecf8e;
+  --accent-red: #ff5c72;
+
+  --gradient-primary: linear-gradient(135deg, #7c5cff 0%, #5b3df0 100%);
+  --gradient-gold: linear-gradient(135deg, #f4b740 0%, #e08e2b 100%);
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-soft: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-purple);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.container-app {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
