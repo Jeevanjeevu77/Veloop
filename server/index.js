@@ -13,8 +13,20 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
 
-app.use(cors({ origin: CLIENT_ORIGIN }));
+app.use(cors());
 app.use(express.json());
+
+const { readyPromise } = require('./db/db');
+
+// Ensure database is initialized before handling requests
+app.use(async (req, res, next) => {
+  try {
+    await readyPromise;
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 
@@ -34,10 +46,12 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Something went wrong on our end.' });
 });
 
-const { readyPromise } = require('./db/db');
-
-readyPromise.then(() => {
-  app.listen(PORT, () => {
-    console.log(`VELOOP Rewards API running on http://localhost:${PORT}`);
+if (require.main === module) {
+  readyPromise.then(() => {
+    app.listen(PORT, () => {
+      console.log(`VELOOP Rewards API running on http://localhost:${PORT}`);
+    });
   });
-});
+}
+
+module.exports = app;
