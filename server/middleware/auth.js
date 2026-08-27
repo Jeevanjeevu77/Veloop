@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET || 'veloop_default_super_secret_jwt_key_2026';
 
 function requireAuth(req, res, next) {
