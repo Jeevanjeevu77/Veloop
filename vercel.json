@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "name": "veloop-rewards",
   "buildCommand": "cd client && npm install && npm run build",
   "outputDirectory": "client/dist",
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "node_modules/sql.js/dist/sql-wasm.wasm"
+    }
+  },
   "rewrites": [
     {
       "source": "/api/(.*)",

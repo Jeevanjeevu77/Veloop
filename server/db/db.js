@@ -2,15 +2,21 @@ const initSqlJs = require('sql.js');
 const fs = require('fs');
 const path = require('path');
 
-const dbPath = path.join(__dirname, 'veloop.sqlite');
+const isServerless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.NOW_REGION);
+const dbDir = isServerless ? '/tmp' : __dirname;
+const dbPath = path.join(dbDir, 'veloop.sqlite');
 
 let sqlDb = null;
 
 function save() {
   if (sqlDb && dbPath) {
-    const data = sqlDb.export();
-    const buffer = Buffer.from(data);
-    fs.writeFileSync(dbPath, buffer);
+    try {
+      const data = sqlDb.export();
+      const buffer = Buffer.from(data);
+      fs.writeFileSync(dbPath, buffer);
+    } catch (e) {
+      // Fallback cleanly if disk is read-only
+    }
   }
 }
 
@@ -92,11 +98,27 @@ const db = {
 
 async function initDb() {
   if (sqlDb) return db;
-  const SQL = await initSqlJs();
-  if (fs.existsSync(dbPath)) {
-    const filebuffer = fs.readFileSync(dbPath);
-    sqlDb = new SQL.Database(filebuffer);
-  } else {
+  let SQL;
+  try {
+    const wasmPath = require.resolve('sql.js/dist/sql-wasm.wasm');
+    if (fs.existsSync(wasmPath)) {
+      const wasmBinary = fs.readFileSync(wasmPath);
+      SQL = await initSqlJs({ wasmBinary });
+    } else {
+      SQL = await initSqlJs();
+    }
+  } catch (e) {
+    SQL = await initSqlJs();
+  }
+
+  try {
+    if (fs.existsSync(dbPath)) {
+      const filebuffer = fs.readFileSync(dbPath);
+      sqlDb = new SQL.Database(filebuffer);
+    } else {
+      sqlDb = new SQL.Database();
+    }
+  } catch (err) {
     sqlDb = new SQL.Database();
   }
 

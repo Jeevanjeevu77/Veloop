@@ -8,8 +8,10 @@ const router = express.Router();
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+const JWT_SECRET = process.env.JWT_SECRET || 'veloop_default_super_secret_jwt_key_2026';
+
 function signToken(userId) {
-  return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '7d' });
+  return jwt.sign({ userId }, JWT_SECRET, { expiresIn: '7d' });
 }
 
 router.post('/signup', (req, res) => {
